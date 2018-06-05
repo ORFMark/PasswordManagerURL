@@ -7,7 +7,7 @@
     tools:context=".UI">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/usrURL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/usrUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -39,10 +39,10 @@
         android:inputType="textPersonName"
         android:text="Username"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/usrURL" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/usrNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -51,6 +51,6 @@
         android:inputType="numberDecimal"
         android:text="A Memorable Number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/usrUserName" />
 
 </android.support.constraint.ConstraintLayout>
