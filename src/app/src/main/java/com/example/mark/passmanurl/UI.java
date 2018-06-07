@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import java.util.Random;
+import android.content.ClipboardManager;
 
 public class UI extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.mark.passmanurl.MESSAGE";
@@ -18,6 +19,7 @@ public class UI extends AppCompatActivity {
         return (urlLength * magicNumber * nameLength) / (magicNumber + urlLength - nameLength);
     }
     public String generatePassword(String URL, String userName, String userNumber) {
+
         String[] password = "                ".split("");
         String[] urlArray = URL.split("");
         String[] nameArray = userName.split("");
@@ -27,18 +29,21 @@ public class UI extends AppCompatActivity {
         int choice = 0;
         int index = 0;
         char ch = ' ';
-        Random generator = new Random(generateSeed(URL.length(), userName.length(), number));
+        Random generator = new Random(generateSeed(urlArray.length, nameArray.length, number));
+
         for (int i = 0; i < 16; i++) {
             choice = generator.nextInt(4);
-            if (choice == 0) {
+
+
+            if (choice == 1) {
                 index = generator.nextInt(URL.length());
                 password[i] = urlArray[index];
             }
-            else if (choice == 1) {
+            else if (choice == 2) {
                 index = generator.nextInt(userName.length());
                 password[i] = nameArray[index];
             }
-            else if (choice == 2) {
+            else if (choice == 3) {
                 index = generator.nextInt(userNumber.length());
                 password[i] = numberArray[index];
             }
@@ -49,11 +54,14 @@ public class UI extends AppCompatActivity {
                 password[i] = password[i].trim();
             }
         }
+
         String temp = "";
         for(int i = 0; i < 16; i++) {
             temp += password[i];
         }
+
         return temp;
+
     }
     public void sendMessage(View view) {
         Intent intent = new Intent(this, PassDisplay.class);
