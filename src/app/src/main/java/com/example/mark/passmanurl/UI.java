@@ -28,8 +28,10 @@ public class UI extends AppCompatActivity {
         String userName = editText.getText().toString();
         editText = (EditText) findViewById(R.id.usrNumber);
         int userNumber = Integer.parseInt(editText.getText().toString());
-        passwordGenerator gen = new passwordGenerator(userURL, userName, userNumber);
-        String password = gen.GeneratePassword(64);
+        passwordGenerator gen = new passwordGenerator();
+        long seed = gen.generateSeed(userName, userURL, userNumber);
+        gen.setSeed(seed);
+        String password = gen.generatePassword();
         intent.putExtra(EXTRA_MESSAGE, password);
         startActivity(intent);
     }

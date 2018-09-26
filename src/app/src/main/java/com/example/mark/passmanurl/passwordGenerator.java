@@ -1,17 +1,22 @@
-
+package com.example.mark.passmanurl;
 
 import java.util.Random;
 
 public class passwordGenerator {
     private Random gen;
-    private int length = 16;
-    private int minSpec = 0;
-    private int minNum = 0;
-    private int minAlpha = 0;
-    boolean repeatAllowed = true;
+    private int length;
+    private int minSpec;
+    private int minNum;
+    private int minAlpha;
+    boolean repeatAllowed;
 
     passwordGenerator() {
         gen = new Random();
+        length = 16;
+        minSpec = 0;
+        minNum = 0;
+        minAlpha = 0;
+        repeatAllowed = true;
     };
 
     private boolean repeated(char[] array, int len, char c) {
@@ -56,6 +61,10 @@ public class passwordGenerator {
         minAlpha = l;
     }
 
+    public void setRepeat(boolean r) {
+        repeatAllowed = r;
+    }
+
     public long generateSeed(String name, String URL, int PIN) {
         long seed = 0;
         int x = (int) URL.charAt((URL.length() - 1));
@@ -68,12 +77,18 @@ public class passwordGenerator {
     public String generatePassword() {
         char password[] = new char[length];
         char toAdd;
-        int special = 0, num = 0, alpha = 0;
+        int special, num, alpha, attemptedPass = 0;
+        ;
         boolean validPassword = false;
+        String finalPassword = "";
         while (!validPassword) {
+            attemptedPass++;
+            special = 0;
+            num = 0;
+            alpha = 0;
             for (int i = 0; i < length; i++) {
                 toAdd = (char) (gen.nextInt(93) + 33);
-                if ((repeatAllowed == false && repeated(password, i, toAdd)) || repeatAllowed == true) {
+                if ((repeatAllowed == false && !repeated(password, i, toAdd)) || repeatAllowed == true) {
                     password[i] = toAdd;
                 } else {
                     continue;
@@ -92,8 +107,20 @@ public class passwordGenerator {
             if (special >= minSpec && num >= minNum && alpha >= minAlpha) {
                 validPassword = true;
             }
+            if (attemptedPass >= 1000000) {
+                break;
+            }
         }
-        return password.toString();
+        if (attemptedPass < 1000000) {
+            for (int j = 0; j < length; j++) {
+                finalPassword += password[j];
+            }
+        }
+        else {
+            System.out.println("Too strict of password Critera, reduce the critera or increase the length");
+            return null;
+        }
+        return finalPassword;
     }
 
 }
