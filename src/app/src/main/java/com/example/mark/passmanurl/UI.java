@@ -29,7 +29,7 @@ public class UI extends AppCompatActivity {
         editText = (EditText) findViewById(R.id.usrNumber);
         int userNumber = Integer.parseInt(editText.getText().toString());
         passwordGenerator gen = new passwordGenerator(userURL, userName, userNumber);
-        String password = gen.GeneratePassword(32);
+        String password = gen.GeneratePassword(64);
         intent.putExtra(EXTRA_MESSAGE, password);
         startActivity(intent);
     }
